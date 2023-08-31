@@ -103,7 +103,8 @@ function App() {
     <div className={style.bg}>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        limit={4}
+        autoClose={4000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
