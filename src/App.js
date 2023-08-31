@@ -11,6 +11,9 @@ import {
   addDoc,
   deleteDoc,
 } from 'firebase/firestore';
+// Toastify
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const style = {
   bg: `h-screen w-screen p-4 bg-gradient-to-r from-[#2F80ED] to-[#1CB5E0]`,
@@ -30,13 +33,33 @@ function App() {
   const createTodo = async (e) => {
     e.preventDefault(e);
     if (input === '') {
-      alert('Please enter a valid todo');
+      // alert('Please enter a valid todo');
+      toast.error('Please enter a valid todo', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
       return;
     }
     await addDoc(collection(db, 'todos'), {
       text: input,
       completed: false,
     });
+    toast.success('Created !', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
     setInput('');
   };
 
@@ -64,10 +87,34 @@ function App() {
   // Delete todo
   const deleteTodo = async (id) => {
     await deleteDoc(doc(db, 'todos', id));
+    toast.info('deleted data!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
   };
 
   return (
     <div className={style.bg}>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
       <div className={style.container}>
         <h3 className={style.heading}>Todo App</h3>
         <form onSubmit={createTodo} className={style.form}>
